@@ -5,7 +5,7 @@ import { supabaseAdmin } from '@/lib/supabase'
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await auth()
@@ -28,7 +28,8 @@ export async function PUT(
     }
 
     const { role } = await request.json()
-    const userIdToUpdate = parseInt(params.id)
+    const { id } = await params
+    const userIdToUpdate = parseInt(id)
 
     if (!['admin', 'user'].includes(role)) {
       return NextResponse.json({ error: 'Invalid role' }, { status: 400 })
