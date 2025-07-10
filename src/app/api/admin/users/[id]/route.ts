@@ -12,6 +12,10 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
+    if (!supabaseAdmin) {
+      return NextResponse.json({ error: 'Database connection error' }, { status: 500 })
+    }
+
     // ✅ ตรวจสอบ role ของ user (จาก clerk_id)
     const { data: currentUser, error: roleError } = await supabaseAdmin
       .from('users')

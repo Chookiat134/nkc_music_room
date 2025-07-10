@@ -13,6 +13,9 @@ export async function GET(request: NextRequest) {
     const clerkId = searchParams.get('clerk_id') || userId
 
     // ใช้ Supabase แทน pool.query
+    if (!supabaseAdmin) {
+      return NextResponse.json({ error: 'Supabase client not initialized' }, { status: 500 })
+    }
     const { data, error } = await supabaseAdmin
       .from('users')
       .select('role')

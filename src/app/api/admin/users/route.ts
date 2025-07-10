@@ -10,6 +10,9 @@ export async function GET(request: NextRequest) {
     }
 
     // ตรวจสอบว่าเป็น admin
+    if (!supabaseAdmin) {
+      return NextResponse.json({ error: 'Supabase client not initialized' }, { status: 500 })
+    }
     const { data: currentUser, error: authError } = await supabaseAdmin
       .from('users')
       .select('role')
@@ -29,6 +32,9 @@ export async function GET(request: NextRequest) {
     const offset = (page - 1) * limit
 
     // Filter users
+    if (!supabaseAdmin) {
+      return NextResponse.json({ error: 'Supabase client not initialized' }, { status: 500 })
+    }
     let userQuery = supabaseAdmin.from('users').select('*', { count: 'exact' }).order('created_at', { ascending: false })
 
     if (search) {
