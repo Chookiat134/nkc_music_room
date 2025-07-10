@@ -2,7 +2,7 @@
 
 import { useUser } from '@clerk/nextjs'
 import { useEffect, useState } from 'react'
-import { User, Mail, Calendar, Activity, Guitar, Wrench } from 'lucide-react'
+import { User, Mail, Calendar, Guitar, Wrench } from 'lucide-react'
 
 interface UserStats {
   total_bookings: number
@@ -58,7 +58,9 @@ const AvatarFromName = ({ name, size = 80 }: { name: string; size?: number }) =>
 }
 
 // Component สำหรับรูปโปรไฟล์
-const ProfileAvatar = ({ user, size = 80 }: { user: any; size?: number }) => {
+import type { UserResource } from '@clerk/types'
+
+const ProfileAvatar = ({ user, size = 80 }: { user: UserResource; size?: number }) => {
   // ถ้ามีรูปจาก Clerk ให้ใช้
   if (user.imageUrl) {
     return (
