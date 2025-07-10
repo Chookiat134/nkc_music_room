@@ -14,12 +14,12 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     // 🔧 FIX: Await params before using
-    const resolvedParams = await params
-    const requestId = parseInt(resolvedParams.id)
+    const params = await context.params
+    const requestId = parseInt(params.id)
     
     // Validate ID
     if (isNaN(requestId)) {
@@ -94,12 +94,12 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     // 🔧 FIX: Await params before using
-    const resolvedParams = await params
-    const requestId = parseInt(resolvedParams.id)
+    const params = await context.params
+    const requestId = parseInt(params.id)
     
     // Validate ID
     if (isNaN(requestId)) {

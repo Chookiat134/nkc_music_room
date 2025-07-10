@@ -10,7 +10,7 @@ const supabase = createClient(
 // PUT - แก้ไขอุปกรณ์ (เฉพาะ admin)
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await auth()
@@ -31,6 +31,7 @@ export async function PUT(
 
     const body = await request.json()
     const { name, description, quantity, condition } = body
+    const params = await context.params
     const equipmentId = parseInt(params.id)
 
     if (!name || !description || !quantity) {
@@ -81,7 +82,7 @@ export async function PUT(
 // DELETE - ลบอุปกรณ์ (เฉพาะ admin)
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await auth()
@@ -100,6 +101,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
+    const params = await context.params
     const equipmentId = parseInt(params.id)
 
     // ตรวจสอบว่ามีการยืมอยู่หรือไม่
@@ -111,7 +113,7 @@ export async function DELETE(
 
     if (activeLoans && activeLoans.length > 0) {
       return NextResponse.json(
-        { error: 'Cannot delete equipment with active loans' }, 
+        { error: 'Cannot delete equipment with active loans' },
         { status: 400 }
       )
     }
