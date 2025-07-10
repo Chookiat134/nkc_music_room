@@ -2,7 +2,7 @@
 "use client";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, JSX } from "react";
 import { useUser } from "@clerk/nextjs";
 import {
   Calendar,
@@ -172,6 +172,7 @@ export default function BookingPage() {
       } else {
         setMessage({ type: "error", text: result.error || "เกิดข้อผิดพลาด" });
       }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       setMessage({
         type: "error",

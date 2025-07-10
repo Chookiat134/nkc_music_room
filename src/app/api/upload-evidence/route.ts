@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
         upsert: false
       })
 
-    const { data, error } = await uploadPromise
+    const { error } = await uploadPromise
 
     if (error) {
       console.error('Supabase storage error:', error)

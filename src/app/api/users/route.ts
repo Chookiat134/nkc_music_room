@@ -9,7 +9,7 @@ const supabase = createClient(
 )
 
 // POST - สร้าง user ใหม่ในฐานข้อมูล
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
     const { userId } = await auth()
     if (!userId) {

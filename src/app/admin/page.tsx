@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from 'react'
 import { useUser } from '@clerk/nextjs'
-import { Users, Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react'
+import {  Search,  ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface User {
   id: string

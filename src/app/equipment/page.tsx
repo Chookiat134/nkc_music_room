@@ -545,7 +545,13 @@ export default function EquipmentPage() {
         return publicUrl;
       } catch (fetchError) {
         clearTimeout(timeoutId);
-        if (fetchError.name === "AbortError") {
+        if (
+          typeof fetchError === "object" &&
+          fetchError !== null &&
+          "name" in fetchError &&
+          typeof (fetchError as { name?: unknown }).name === "string" &&
+          (fetchError as { name: string }).name === "AbortError"
+        ) {
           throw new Error("Upload timeout - please try again");
         }
         throw fetchError;

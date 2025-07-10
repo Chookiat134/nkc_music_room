@@ -108,7 +108,7 @@ if (image) {
       // ไม่ throw error ให้ดำเนินการต่อโดยไม่มีรูปภาพ
     } else {
       // Upload image
-      const { data: uploadData, error: uploadError } = await supabase.storage
+      const { error: uploadError } = await supabase.storage
         .from('maintenance-images')
         .upload(fileName, image)
 

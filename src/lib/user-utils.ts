@@ -15,6 +15,10 @@ export interface User {
 export async function getOrCreateUser(clerkId: string): Promise<User | null> {
   try {
     // ลองหา user ใน database ก่อน
+    if (!supabaseAdmin) {
+      console.error('supabaseAdmin is null')
+      return null
+    }
     const { data: existingUser, error: fetchError } = await supabaseAdmin
       .from('users')
       .select('*')

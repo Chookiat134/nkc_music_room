@@ -3,9 +3,9 @@
 
 import { useState, useEffect } from 'react'
 import { useUser } from '@clerk/nextjs'
-import { Calendar, Clock, User, AlertCircle, Trash2, Edit, CheckCircle } from 'lucide-react'
+import { Calendar, Clock, User, AlertCircle, Trash2,  CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import {
@@ -143,6 +143,7 @@ useEffect(() => {
     } else {
       setMessage({ type: 'error', text: result.error || 'เกิดข้อผิดพลาด' })
     }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     setMessage({ type: 'error', text: 'เกิดข้อผิดพลาดในการติดต่อเซิร์ฟเวอร์' })
   }

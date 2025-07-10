@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
 
     // อัพโหลดไฟล์ไป Supabase Storage
     const fileBuffer = await file.arrayBuffer()
-    const { data, error } = await supabase.storage
+    const {  error } = await supabase.storage
       .from('equipment-evidence')
       .upload(filePath, fileBuffer, {
         contentType: file.type,
