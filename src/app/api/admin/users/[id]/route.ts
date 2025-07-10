@@ -4,7 +4,7 @@ import { supabaseAdmin } from '@/lib/supabase'
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await auth()
@@ -15,6 +15,9 @@ export async function DELETE(
     if (!supabaseAdmin) {
       return NextResponse.json({ error: 'Database connection error' }, { status: 500 })
     }
+
+    // Await the params promise
+    const params = await context.params
 
     // ✅ ตรวจสอบ role ของ user (จาก clerk_id)
     const { data: currentUser, error: roleError } = await supabaseAdmin
