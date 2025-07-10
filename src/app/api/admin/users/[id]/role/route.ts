@@ -1,3 +1,4 @@
+// src/app/api/admin/users/[id]/role/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@clerk/nextjs/server'
 import { supabaseAdmin } from '@/lib/supabase'
@@ -12,7 +13,10 @@ export async function PUT(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    // ตรวจสอบ role ของผู้ใช้ที่กำลังเรียก API
+    if (!supabaseAdmin) {
+      return NextResponse.json({ error: 'Database connection error' }, { status: 500 })
+    }
+
     const { data: currentUser, error: roleError } = await supabaseAdmin
       .from('users')
       .select('role')
@@ -26,12 +30,10 @@ export async function PUT(
     const { role } = await request.json()
     const userIdToUpdate = parseInt(params.id)
 
-    // ตรวจสอบว่า role ถูกต้องหรือไม่
     if (!['admin', 'user'].includes(role)) {
       return NextResponse.json({ error: 'Invalid role' }, { status: 400 })
     }
 
-    // ตรวจสอบว่าผู้ใช้ที่จะแก้ไขมีจริง
     const { data: targetUser, error: targetError } = await supabaseAdmin
       .from('users')
       .select('id')
@@ -42,7 +44,6 @@ export async function PUT(
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    // อัปเดต role ของ user
     const { data: updatedUser, error: updateError } = await supabaseAdmin
       .from('users')
       .update({
@@ -58,7 +59,6 @@ export async function PUT(
     }
 
     return NextResponse.json({ user: updatedUser })
-
   } catch (error) {
     console.error('Error updating user role:', error)
     return NextResponse.json(
