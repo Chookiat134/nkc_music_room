@@ -62,6 +62,11 @@ export async function POST(req: Request) {
         const userName = fullName || primaryEmail.email_address.split('@')[0] || 'User'
 
         // ใช้ database function
+        if (!supabaseAdmin) {
+          console.error('supabaseAdmin is not initialized')
+          return new Response('Database connection not available', { status: 500 })
+        }
+
         const { data, error } = await supabaseAdmin
           .rpc('create_user_from_clerk', {
             p_clerk_id: id,
@@ -112,6 +117,10 @@ export async function POST(req: Request) {
         const userName = fullName || primaryEmail.email_address.split('@')[0] || 'User'
 
         // ใช้ database function หรือ regular update
+        if (!supabaseAdmin) {
+          console.error('supabaseAdmin is not initialized')
+          return new Response('Database connection not available', { status: 500 })
+        }
         const { data, error } = await supabaseAdmin
           .rpc('update_user_from_clerk', {
             p_clerk_id: id,
@@ -148,6 +157,10 @@ export async function POST(req: Request) {
 
       case 'user.deleted': {
         // ใช้ database function หรือ regular delete
+        if (!supabaseAdmin) {
+          console.error('supabaseAdmin is not initialized')
+          return new Response('Database connection not available', { status: 500 })
+        }
         const { data, error } = await supabaseAdmin
           .rpc('delete_user_from_clerk', {
             p_clerk_id: id

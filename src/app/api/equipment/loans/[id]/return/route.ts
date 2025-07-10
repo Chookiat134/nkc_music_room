@@ -78,7 +78,15 @@ export async function POST(
     }
 
     // อัพเดทการยืม
-    const returnData = {
+    const returnData: {
+      status: string
+      return_date: string
+      returned_by_name: string
+      returned_by_email: string
+      return_evidence_url: string | null
+      updated_at: string
+      notes?: string
+    } = {
       status: 'returned',
       return_date: new Date().toISOString().split('T')[0],
       returned_by_name: `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim(),
