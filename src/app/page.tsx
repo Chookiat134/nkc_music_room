@@ -1,103 +1,185 @@
-import Image from "next/image";
+import { auth } from '@clerk/nextjs/server'
+import Link from 'next/link'
+import { 
+  Calendar, 
+  Guitar, 
+  Wrench, 
+  Users,
+  TrendingUp,
+  Clock,
+  CheckCircle
+} from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+export default async function HomePage() {
+  const { userId } = await auth()
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  if (!userId) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+        {/* Hero Section */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center">
+            <div className="flex justify-center mb-8">
+              <Guitar className="h-16 w-16 text-blue-600" />
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+              Music Room
+              <span className="text-blue-600"> Booking</span>
+            </h1>
+            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+              ระบบจองห้องดนตรีและยืม/คืนอุปกรณ์ดนตรี ที่ใช้งานง่าย มีประสิทธิภาพ
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/sign-up">
+                <Button size="lg" className="text-lg px-8 py-3">
+                  เริ่มใช้งาน
+                </Button>
+              </Link>
+              <Link href="/sign-in">
+                <Button variant="outline" size="lg" className="text-lg px-8 py-3">
+                  เข้าสู่ระบบ
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* Features Section */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              ฟีเจอร์หลัก
+            </h2>
+            <p className="text-lg text-gray-600">
+              ทุกสิ่งที่คุณต้องการสำหรับการจัดการห้องดนตรี
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="text-center">
+              <CardHeader>
+                <Calendar className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+                <CardTitle>จองห้องดนตรี</CardTitle>
+                <CardDescription>
+                  จองห้องฝึกซ้อมล่วงหน้า ตรวจสอบเวลาว่างได้แบบเรียลไทม์
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card className="text-center">
+              <CardHeader>
+                <Guitar className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+                <CardTitle>ยืม/คืนอุปกรณ์</CardTitle>
+                <CardDescription>
+                  ระบบยืม/คืนอุปกรณ์ดนตรี ติดตามสถานะได้ตลอดเวลา
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card className="text-center">
+              <CardHeader>
+                <Wrench className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+                <CardTitle>แจ้งซ่อม</CardTitle>
+                <CardDescription>
+                  แจ้งปัญหาอุปกรณ์ได้ทันที ติดตามความคืบหน้าการซ่อม
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // User is logged in - show dashboard
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          ยินดีต้อนรับ
+        </h1>
+        <p className="text-gray-600">
+          เลือกบริการที่คุณต้องการใช้งาน
+        </p>
+      </div>
+
+      {/* Quick Actions */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <Link href="/booking">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+            <CardHeader className="flex flex-row items-center space-y-0 pb-2">
+              <Calendar className="h-8 w-8 text-blue-600" />
+              <div className="ml-4">
+                <CardTitle>จองห้องดนตรี</CardTitle>
+                <CardDescription>
+                  จองห้องฝึกซ้อมสำหรับการใช้งาน
+                </CardDescription>
+              </div>
+            </CardHeader>
+          </Card>
+        </Link>
+
+        <Link href="/equipment">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+            <CardHeader className="flex flex-row items-center space-y-0 pb-2">
+              <Guitar className="h-8 w-8 text-blue-600" />
+              <div className="ml-4">
+                <CardTitle>ยืม/คืนอุปกรณ์</CardTitle>
+                <CardDescription>
+                  จัดการการยืมและคืนอุปกรณ์ดนตรี
+                </CardDescription>
+              </div>
+            </CardHeader>
+          </Card>
+        </Link>
+
+        <Link href="/maintenance">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+            <CardHeader className="flex flex-row items-center space-y-0 pb-2">
+              <Wrench className="h-8 w-8 text-blue-600" />
+              <div className="ml-4">
+                <CardTitle>แจ้งซ่อม</CardTitle>
+                <CardDescription>
+                  รายงานปัญหาและขอการซ่อมแซม
+                </CardDescription>
+              </div>
+            </CardHeader>
+          </Card>
+        </Link>
+      </div>
+
+      {/* Recent Activity */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <Clock className="h-5 w-5 mr-2" />
+              การจองล่าสุด
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-gray-500 text-center py-8">
+              ยังไม่มีการจองห้อง
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <Guitar className="h-5 w-5 mr-2" />
+              อุปกรณ์ที่ยืม
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-gray-500 text-center py-8">
+              ยังไม่มีการยืมอุปกรณ์
+            </p>
+          </CardContent>
+        </Card>
+      </div>
     </div>
-  );
+  )
 }
