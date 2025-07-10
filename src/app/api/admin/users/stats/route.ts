@@ -10,6 +10,9 @@ export async function GET() {
     }
 
     // 1. เช็ค role ว่าเป็น admin หรือไม่
+    if (!supabaseAdmin) {
+      return NextResponse.json({ error: 'Database connection error' }, { status: 500 })
+    }
     const { data: userData, error: userError } = await supabaseAdmin
       .from('users')
       .select('role')
