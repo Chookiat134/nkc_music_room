@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {
   Plus,
   Search,
-  Filter,
+  
   Edit,
   Trash2,
   Package,
@@ -17,7 +17,7 @@ import {
   CheckCircle,
   X,
   Upload,
-  FileImage,
+
   Eye,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -25,7 +25,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { supabase } from "@/lib/supabase";
+// import { supabase } from "@/lib/supabase";
 
 interface Equipment {
   id: number;

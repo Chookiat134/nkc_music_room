@@ -16,7 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Dialog,
   DialogContent,
@@ -100,7 +100,7 @@ const statusLabels = {
 
 export default function MaintenancePage() {
   const { user, isLoaded } = useUser();
-  const [notification, setNotification] = useState(null);
+  // const [notification, setNotification] = useState(null);
   const [image, setImage] = useState<File | null>(null);
   const [userRole, setUserRole] = useState<"admin" | "user" | null>(null);
   const [maintenanceRequests, setMaintenanceRequests] = useState<
@@ -301,10 +301,10 @@ export default function MaintenancePage() {
       }
 
       // ตรวจสอบ FormData
-      console.log("FormData entries:");
-      for (let [key, value] of formDataToSend.entries()) {
-        console.log(key, value);
-      }
+      // console.log("FormData entries:");
+      // for (let [key, value] of formDataToSend.entries()) {
+      //   console.log(key, value);
+      // }
 
       const response = await fetch("/api/maintenance", {
         method: "POST",
