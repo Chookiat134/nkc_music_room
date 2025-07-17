@@ -1,6 +1,5 @@
 // src/app/admin/users/page.tsx
 'use client'
-import type { UserResource } from '@clerk/types'
 import { useState, useEffect } from 'react'
 import { useUser } from '@clerk/nextjs'
 import { 
@@ -470,7 +469,7 @@ export default function AdminUsersPage() {
                 ยืนยันการลบผู้ใช้
               </h3>
               <p className="text-gray-600 mb-6">
-                คุณต้องการลบผู้ใช้ "{userToDelete.name}" ใช่หรือไม่? การดำเนินการนี้ไม่สามารถยกเลิกได้
+                คุณต้องการลบผู้ใช้ &quot;{userToDelete.name}&quot; ใช่หรือไม่? การดำเนินการนี้ไม่สามารถยกเลิกได้
               </p>
               <div className="flex justify-end space-x-3">
                 <button
@@ -501,7 +500,7 @@ export default function AdminUsersPage() {
                 เปลี่ยนบทบาทผู้ใช้
               </h3>
               <p className="text-gray-600 mb-4">
-                เปลี่ยนบทบาทของ "{userToChangeRole.name}" จาก{' '}
+                เปลี่ยนบทบาทของ &quot;{userToChangeRole.name}&quot; จาก{' '}
                 <span className="font-medium">
                   {userToChangeRole.role === 'admin' ? 'ผู้ดูแล' : 'ผู้ใช้ทั่วไป'}
                 </span>{' '}
