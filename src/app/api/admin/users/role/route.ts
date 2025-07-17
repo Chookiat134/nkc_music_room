@@ -1,3 +1,4 @@
+// src/app/api/admin/users/role/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@clerk/nextjs/server'
 import { supabaseAdmin } from '@/lib/supabase'  // ใช้ Supabase Admin Client

@@ -22,7 +22,7 @@ export async function POST() {
     }
 
     const email = clerkUser.emailAddresses[0]?.emailAddress
-    const name = `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim()
+    const name = `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim() || 'ผู้ใช้'
 
     if (!email) {
       return NextResponse.json({ error: 'Email not found' }, { status: 400 })
@@ -31,12 +31,32 @@ export async function POST() {
     // ตรวจสอบว่า user มีอยู่แล้วหรือไม่
     const { data: existingUser } = await supabase
       .from('users')
-      .select('id')
+      .select('id, name, email, role')
       .eq('clerk_id', userId)
       .single()
 
     if (existingUser) {
-      return NextResponse.json({ message: 'User already exists' }, { status: 200 })
+      // ถ้ามี user แล้ว ให้อัพเดทข้อมูล (ในกรณีที่มีการเปลี่ยนแปลง)
+      const { data: updatedUser, error: updateError } = await supabase
+        .from('users')
+        .update({
+          email,
+          name,
+          updated_at: new Date().toISOString()
+        })
+        .eq('clerk_id', userId)
+        .select()
+        .single()
+
+      if (updateError) {
+        console.error('Error updating user:', updateError)
+        return NextResponse.json({ error: 'Failed to update user' }, { status: 500 })
+      }
+
+      return NextResponse.json({ 
+        message: 'User updated successfully', 
+        user: updatedUser 
+      }, { status: 200 })
     }
 
     // สร้าง user ใหม่
@@ -56,7 +76,11 @@ export async function POST() {
       return NextResponse.json({ error: 'Failed to create user' }, { status: 500 })
     }
 
-    return NextResponse.json(newUser, { status: 201 })
+    return NextResponse.json({ 
+      message: 'User created successfully', 
+      user: newUser 
+    }, { status: 201 })
+    
   } catch (error) {
     console.error('Error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })

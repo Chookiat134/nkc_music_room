@@ -1,3 +1,4 @@
+// src/app/api/admin/users/stats/route.ts
 import { NextResponse } from 'next/server'
 import { auth } from '@clerk/nextjs/server'
 import { supabaseAdmin } from '@/lib/supabase'

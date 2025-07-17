@@ -1,4 +1,6 @@
-// .scr/components/layout/Footer.tsx
+// src/components/layout/Footer.tsx
+import { Guitar } from 'lucide-react'
+
 export function Footer() {
   return (
     <footer className="bg-gray-50 border-t border-gray-200 mt-auto">
@@ -6,7 +8,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              {/* <Guitar className="h-6 w-6 text-blue-600" /> */}
+              <Guitar className="h-6 w-6 text-blue-600" />
               <span className="text-lg font-semibold text-gray-900">
                 Music Room
               </span>
@@ -32,9 +34,9 @@ export function Footer() {
               ติดต่อ
             </h3>
             <ul className="space-y-2 text-sm text-gray-600">
-              <li>โทร: 02-xxx-xxxx</li>
-              <li>อีเมล: info@musicroom.com</li>
-              <li>เวลาทำการ: 9:00 - 18:00 น.</li>
+              <li>Facebook: NKC MUSIC</li>
+              {/* <li>อีเมล: info@musicroom.com</li>
+              <li>เวลาทำการ: 9:00 - 18:00 น.</li> */}
             </ul>
           </div>
         </div>

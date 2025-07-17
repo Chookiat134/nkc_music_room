@@ -1,13 +1,14 @@
+// File: src/app/page.tsx
 import { auth } from '@clerk/nextjs/server'
 import Link from 'next/link'
 import { 
   Calendar, 
   Guitar, 
   Wrench, 
-  Clock,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { TimeSlotsDisplay } from '@/components/TimeSlotsDisplay'
 
 export default async function HomePage() {
   const { userId } = await auth()
@@ -147,22 +148,12 @@ export default async function HomePage() {
         </Link>
       </div>
 
-      {/* Recent Activity */}
+      {/* Time Slots and Equipment Status */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <Clock className="h-5 w-5 mr-2" />
-              การจองล่าสุด
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-gray-500 text-center py-8">
-              ยังไม่มีการจองห้อง
-            </p>
-          </CardContent>
-        </Card>
+        {/* Time Slots Availability - Client Component */}
+        <TimeSlotsDisplay />
 
+        {/* Equipment Status */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center">

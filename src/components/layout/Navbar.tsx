@@ -217,8 +217,3 @@ export function Navbar() {
     </nav>
   )
 }
-
-// src/components/layout/Footer.tsx
-
-
-// src/app/layout.tsx (updated)

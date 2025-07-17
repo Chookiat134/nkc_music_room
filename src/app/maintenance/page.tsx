@@ -401,7 +401,7 @@ export default function MaintenancePage() {
               แจ้งซ่อมใหม่
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl">
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>แจ้งซ่อมอุปกรณ์</DialogTitle>
             </DialogHeader>
@@ -542,12 +542,12 @@ export default function MaintenancePage() {
                     <img
                       src={URL.createObjectURL(image)}
                       alt="Preview"
-                      className="max-w-xs rounded-lg border border-gray-300 shadow"
+                      className="max-w-full max-h-48 w-auto rounded-lg border border-gray-300 shadow object-contain"
                     />
                     <button
                       type="button"
                       onClick={() => setImage(null)}
-                      className="absolute top-1 right-1 bg-white rounded-full p-1 border border-gray-300 hover:bg-red-500 hover:text-white transition"
+                      className="absolute top-1 right-1 bg-white rounded-full p-1 border border-gray-300 hover:bg-red-500 text-gray-900 hover:text-white transition"
                       aria-label="Remove image"
                     >
                       ✖

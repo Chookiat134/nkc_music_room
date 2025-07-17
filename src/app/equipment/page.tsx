@@ -7,7 +7,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import {
   Plus,
   Search,
-  
   Edit,
   Trash2,
   Package,
@@ -17,7 +16,6 @@ import {
   CheckCircle,
   X,
   Upload,
-
   Eye,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -130,6 +128,8 @@ export default function EquipmentPage() {
   const [borrowFilePreview, setBorrowFilePreview] = useState<string>("");
   const [returnFilePreview, setReturnFilePreview] = useState<string>("");
 
+  const [showBorrowFileCancel, setShowBorrowFileCancel] = useState(false);
+  const [showReturnFileCancel, setShowReturnFileCancel] = useState(false);
   // Check user role
   useEffect(() => {
     const checkUserRole = async () => {
@@ -160,6 +160,20 @@ export default function EquipmentPage() {
       checkUserRole();
     }
   }, [user, isLoaded]);
+
+  // ยกเลิกไฟล์การยืม
+  const cancelBorrowFile = () => {
+    setBorrowForm({ ...borrowForm, evidence_file: null });
+    setBorrowFilePreview("");
+    setShowBorrowFileCancel(false);
+  };
+
+  // ยกเลิกไฟล์การคืน
+  const cancelReturnFile = () => {
+    setReturnForm({ ...returnForm, evidence_file: null });
+    setReturnFilePreview("");
+    setShowReturnFileCancel(false);
+  };
 
   // Fetch equipment - แก้ไขแล้ว
   const fetchEquipment = async () => {
@@ -254,11 +268,14 @@ export default function EquipmentPage() {
   // Handle file selection for borrow
   const handleBorrowFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+
     if (file) {
       setBorrowForm({ ...borrowForm, evidence_file: file });
+
       const reader = new FileReader();
       reader.onload = (e) => {
         setBorrowFilePreview(e.target?.result as string);
+        setShowBorrowFileCancel(true);
       };
       reader.readAsDataURL(file);
     }
@@ -267,16 +284,18 @@ export default function EquipmentPage() {
   // Handle file selection for return
   const handleReturnFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+
     if (file) {
       setReturnForm({ ...returnForm, evidence_file: file });
+
       const reader = new FileReader();
       reader.onload = (e) => {
         setReturnFilePreview(e.target?.result as string);
+        setShowReturnFileCancel(true);
       };
       reader.readAsDataURL(file);
     }
   };
-
   // Handle save equipment
   const handleSaveEquipment = async () => {
     if (!equipmentForm.name.trim()) {
@@ -1330,22 +1349,7 @@ export default function EquipmentPage() {
 
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  หมายเหตุ (ไม่บังคับ)
-                </label>
-                <textarea
-                  value={borrowForm.notes}
-                  onChange={(e) =>
-                    setBorrowForm({ ...borrowForm, notes: e.target.value })
-                  }
-                  placeholder="หมายเหตุเพิ่มเติม..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  rows={3}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2">
-                  หลักฐานการยืม (ไม่บังคับ)
+                  หลักฐานการยืม
                   <span className="text-xs text-gray-500 ml-2">
                     รูปภาพเท่านั้น
                   </span>
@@ -1370,12 +1374,22 @@ export default function EquipmentPage() {
                 </div>
 
                 {borrowFilePreview && (
-                  <div className="mt-2">
+                  <div className="mt-2 relative">
                     <img
                       src={borrowFilePreview}
                       alt="ตัวอย่างรูปภาพ"
                       className="w-32 h-32 object-cover border rounded-md"
                     />
+                    {showBorrowFileCancel && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={cancelBorrowFile}
+                        className="absolute top-0 right-0 bg-white hover:bg-red-500 text-black hover:text-white rounded-full p-1 border border-gray-300"
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    )}
                   </div>
                 )}
               </div>
@@ -1492,12 +1506,22 @@ export default function EquipmentPage() {
                 </div>
 
                 {returnFilePreview && (
-                  <div className="mt-2">
+                  <div className="mt-2 relative">
                     <img
                       src={returnFilePreview}
                       alt="ตัวอย่างรูปภาพ"
                       className="w-32 h-32 object-cover border rounded-md"
                     />
+                    {showReturnFileCancel && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={cancelBorrowFile}
+                        className="absolute top-0 right-0 bg-white hover:bg-red-500 text-black hover:text-white rounded-full p-1 border border-gray-300"
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    )}
                   </div>
                 )}
               </div>
