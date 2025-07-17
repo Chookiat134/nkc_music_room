@@ -168,12 +168,6 @@ export default function EquipmentPage() {
     setShowBorrowFileCancel(false);
   };
 
-  // ยกเลิกไฟล์การคืน
-  const cancelReturnFile = () => {
-    setReturnForm({ ...returnForm, evidence_file: null });
-    setReturnFilePreview("");
-    setShowReturnFileCancel(false);
-  };
 
   // Fetch equipment - แก้ไขแล้ว
   const fetchEquipment = async () => {
